@@ -78,7 +78,7 @@ C<Text::Autoformat>.
 
 Copyright (C) 2002-2003 Kasei Limited
 Copyright (C) 2003-2004 Simon Cozens
-Copyright (C) 2004 Best Practical Solutions
+Copyright (C) 2004 Best Practical Solutions, LLC
 
 This software is distributed WITHOUT ANY WARRANTY; without even the implied
 warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
@@ -171,22 +171,24 @@ my $quoter     = qq{(?:(?i)(?:$quotechunk(?:[ \\t]*$quotechunk)*))};
 
 my $separator = q/(?:[-_]{2,}|[=#*]{3,}|[+~]{4,})/;
 
-sub defn($) { return $_[0] if defined $_[0]; return ""; }
+sub defn($) { return $_[0] if (defined $_[0]); return "" }
 
 sub classify {
-    my $text = shift;
+    my $text = shift || ""; # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
     my @rawlines = split /\n/, $text;
     use Text::Tabs;
     @rawlines = expand(@rawlines);
 
+use Data::Dumper;print scalar Dumper \@rawlines;
+
     # PARSE EACH LINE
 
     my $pre = 0;
     my @lines;
     foreach (@rawlines) {
-        push @lines, { raw => $_ };
+        push @lines, { raw => $_};
         s/\A([ \t]*)($quoter?)([ \t]*)//;
         $lines[-1]{presig} = $lines[-1]{prespace} = defn $1;
         $lines[-1]{presig} .= $lines[-1]{quoter}     = defn $2;
@@ -230,7 +232,8 @@ sub classify {
             {
                 push @paras, $line;
                 $first     = 0;
-                $firstfrom = length( $line->{raw} ) - length( $line->{text} );
+		# We get warnings from undefined raw and text values if we don't supply alternates
+                $firstfrom = length( $line->{raw} ||0 ) - length( $line->{text} || 0);
             }
             else {
                 my $extraspace =
