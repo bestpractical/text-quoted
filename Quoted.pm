@@ -1,5 +1,5 @@
 package Text::Quoted;
-our $VERSION = "1.7";
+our $VERSION = "1.8";
 use 5.006;
 use strict;
 use warnings;
@@ -174,7 +174,9 @@ my $separator = q/(?:[-_]{2,}|[=#*]{3,}|[+~]{4,})/;
 sub defn($) { return $_[0] if (defined $_[0]); return "" }
 
 sub classify {
-    my $text = shift || ""; # If the user passes in a null string, we really want to end up with _something_
+    my $text = shift;
+    $text = "" unless defined $text;
+    # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
     my @rawlines = split /\n/, $text;
@@ -232,7 +234,7 @@ sub classify {
                 push @paras, $line;
                 $first     = 0;
 		# We get warnings from undefined raw and text values if we don't supply alternates
-                $firstfrom = length( $line->{raw} ||0 ) - length( $line->{text} || 0);
+                $firstfrom = length( $line->{raw} ||'' ) - length( $line->{text} || '');
             }
             else {
                 my $extraspace =
