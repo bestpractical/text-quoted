@@ -7,8 +7,6 @@ inc/Module/Install/Metadata.pm
 Makefile
 Makefile.PL
 MANIFEST			This list of files
-MANIFEST.bak
-MANIFEST.skip
 META.yml
 pm_to_blib
 Quoted.pm
