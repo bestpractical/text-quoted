@@ -1,5 +1,5 @@
 package Text::Quoted;
-our $VERSION = "1.6";
+our $VERSION = "1.7";
 use 5.006;
 use strict;
 use warnings;
@@ -181,7 +181,6 @@ sub classify {
     use Text::Tabs;
     @rawlines = expand(@rawlines);
 
-use Data::Dumper;print scalar Dumper \@rawlines;
 
     # PARSE EACH LINE
 

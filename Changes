@@ -1,5 +1,9 @@
 Revision history for Perl extension Text::Quoted.
 
+1.7  Wed Jun 16 16:54:57 EDT 2004
+
+	- New maintainer learns to remove his debugging output
+
 1.6  Wed Jun 16 13:36:00 EDT 2004
 
 	- New maintainer
