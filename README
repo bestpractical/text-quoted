@@ -25,11 +25,10 @@ DEPENDENCIES
 
 This module requires these other modules and libraries:
 
-  blah blah blah
+	Text::AutoFormat
 
 COPYRIGHT AND LICENCE
 
-Put the correct copyright and licence information here.
 
 Copyright (C) 2002 Simon Cozens
 

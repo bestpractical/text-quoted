@@ -1,5 +1,5 @@
 package Text::Quoted;
-our $VERSION = "1.5";
+our $VERSION = "1.6";
 use 5.006;
 use strict;
 use warnings;
@@ -76,12 +76,15 @@ C<Text::Autoformat>.
 
 =head1 COPYRIGHT
 
-Copyright (C) 2002 Kasei Limited
+Copyright (C) 2002-2003 Kasei Limited
+Copyright (C) 2003-2004 Simon Cozens
+Copyright (C) 2004 Best Practical Solutions
 
 This software is distributed WITHOUT ANY WARRANTY; without even the implied
 warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-It may be used and redistributed under the terms of the Artistic License.
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
 
 =cut
 
