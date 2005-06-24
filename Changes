@@ -1,5 +1,8 @@
 Revision history for Perl extension Text::Quoted.
 
+1.9  Fri Jun 24 15:34:46 EDT 2005
+	- Manifest cleanup. From Mike Castle
+
 1.8  Thu Jul  1 23:21:14 EDT 2004
         - Fix handling for the case where we we're quoting
 	  a false but defined string. From Stephen Quinney.
