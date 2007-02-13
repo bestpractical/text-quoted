@@ -1,13 +1,14 @@
-name: Text-Quoted
-module_name: Text::Quoted
-version: 1.8
 author: Jesse Vincent <jesse@bestpractical.com>
-license: perl
 distribution_type: module
-requires:
+generated_by: Module::Install version 0.64
+license: perl
+module_name: Text::Quoted
+name: Text-Quoted
+no_index: 
+  directory: 
+    - inc
+    - t
+requires: 
   Text::Autoformat: 0
   Text::Tabs: 0
-no_index:
-  directory:
-    - inc
-generated_by: Module::Install version 0.33
+version: 1.10
