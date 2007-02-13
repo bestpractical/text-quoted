@@ -152,7 +152,7 @@ sub find_below {
         # And return the first one which is "below" where we are right
         # now but is a proper subset of the next line. 
         next unless $_;
-        if ( $_ =~ /^\Q$top_level\E.+/ and $stuff[0]->{quoter} =~ /\Q$_\E/ ) {
+        if ( $_ =~ /^\Q$top_level\E.+/ and $stuff[0]->{quoter} =~ /^\Q$_\E/ ) {
 
             #print "## We decided on $_\n";
             return $_;
