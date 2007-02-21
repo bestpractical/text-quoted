@@ -1,5 +1,8 @@
 Revision history for Perl extension Text::Quoted.
 
+2.01 Wed Feb 20 2007
+    - fix a problem with $VERSION
+
 1.10 Tue Feb 13 2007
     - fix a bug where lines are hidden when the quote character
       changes midstream.  Reported by Dirk Pape and Sven Sternberger
