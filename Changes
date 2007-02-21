@@ -1,5 +1,8 @@
 Revision history for Perl extension Text::Quoted.
 
+2.02 Wed Feb 20 2007
+    - fix a missing test in MANIFEST
+
 2.01 Wed Feb 20 2007
     - fix a problem with $VERSION
 

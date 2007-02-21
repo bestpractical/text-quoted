@@ -11,4 +11,4 @@ no_index:
 requires: 
   Text::Autoformat: 0
   Text::Tabs: 0
-version: 2.01
+version: 2.02
