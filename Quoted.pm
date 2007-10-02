@@ -10,6 +10,7 @@ our @ISA    = qw(Exporter);
 our @EXPORT = qw(extract);
 
 use Text::Autoformat();    # Provides the Hang package, heh, heh.
+use Text::Tabs();
 
 =head1 NAME
 
@@ -179,9 +180,7 @@ sub classify {
     # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
-    my @rawlines = split /\n/, $text;
-    use Text::Tabs;
-    @rawlines = expand(@rawlines);
+    my @rawlines = Text::Tabs::expand( split /\n/, $text );
 
 
     # PARSE EACH LINE
