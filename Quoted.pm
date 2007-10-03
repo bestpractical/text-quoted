@@ -60,14 +60,14 @@ is the quotation string.
 =cut
 
 sub extract {
-    my $text  = shift;
-    my @paras = classify($text);
-    my @needed;
-    for my $p (@paras) {
-        push @needed, { map { $_ => $p->{$_} } qw(raw empty text quoter) };
-    }
-
-    return organize( "", @needed );
+    return organize( "",
+        map +{
+            raw    => $_->{'raw'},
+            empty  => $_->{'empty'},
+            text   => $_->{'text'},
+            quoter => $_->{'quoter'},
+        }, classify( @_ )
+    );
 }
 
 =head1 CREDITS
