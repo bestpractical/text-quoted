@@ -92,20 +92,22 @@ it under the same terms as Perl itself.
 sub organize {
     my $top_level = shift;
     my @todo      = @_;
+    $top_level = '' unless defined $top_level;
+
     my @ret;
 
     # Recursively form a data structure which reflects the quoting
     # structure of the list.
-    while (@todo) {
-        my $line = shift @todo;
-        if ( defn( $line->{quoter} ) eq defn($top_level) ) {
+    while (my $line = shift @todo) {
+        my $q = defined $line->{quoter}? $line->{quoter}: '';
+        if ( $q eq $top_level ) {
 
             # Just append lines at "my" level.
             push @ret, $line
               if exists $line->{quoter}
               or exists $line->{empty};
         }
-        elsif ( defn( $line->{quoter} ) =~ /^\Q$top_level\E.+/ ) {
+        elsif ( $q =~ /^\Q$top_level\E./ ) {
 
             # Find all the lines at a quoting level "below" me.
             my $newquoter = find_below( $top_level, $line, @todo );
