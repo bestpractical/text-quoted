@@ -140,28 +140,15 @@ sub organize {
 sub find_below {
     my ( $top_level, @stuff ) = @_;
 
-    #print "## Looking for the next level of quoting after $top_level\n";
-    #print "## We have:\n";
-    #print "## $_->{raw}\n" for @stuff;
-
-    my @prefices = sort { length $a <=> length $b } map { $_->{quoter} } @stuff;
-
     # Find the prefices, shortest first.
-
-    # return $prefices[0] if $prefices[0] eq $prefices[-1];
-
-    for (@prefices) {
-
-        # And return the first one which is "below" where we are right
-        # now but is a proper subset of the next line. 
-        next unless $_;
-        if ( $_ =~ /^\Q$top_level\E.+/ and $stuff[0]->{quoter} =~ /^\Q$_\E/ ) {
-
-            #print "## We decided on $_\n";
-            return $_;
-        }
-    }
-    die "Can't happen";
+    # And return the first one which is "below" where we are right
+    # now but is a proper subset of the next line. 
+    return (
+        sort { length $a <=> length $b }
+        grep $_ && /^\Q$top_level\E./ && $stuff[0]->{quoter} =~ /^\Q$_\E/,
+        map $_->{quoter},
+        @stuff 
+    )[0];
 }
 
 # Everything below this point is essentially Text::Autoformat.
