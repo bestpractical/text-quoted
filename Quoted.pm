@@ -232,25 +232,6 @@ sub classify {
         }
     }
 
-    my $remainder = "";
-
-    # ALIGN QUOTERS
-    # DETERMINE HANGING MARKER TYPE (BULLET, ALPHA, ROMAN, ETC.)
-
-    my %sigs;
-    my $lastquoted   = 0;
-    my $lastprespace = 0;
-    for my $i ( 0 .. $#paras ) {
-        my $para = $paras[$i];
-        if ( $para->{quoter} ) {
-            if ($lastquoted) { $para->{prespace} = $lastprespace }
-            else { $lastquoted = 1; $lastprespace = $para->{prespace} }
-        }
-        else {
-            $lastquoted = 0;
-        }
-    }
-
     # Reapply hangs
     for (@paras) {
         next unless my $hang = $_->{hang};
