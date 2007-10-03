@@ -191,7 +191,7 @@ sub classify {
         if ( $line->{separator}
             || $line->{quoter} ne $chunks[-1][-1]->{quoter}
             || $line->{empty}
-            || @chunks && $chunks[-1][-1]->{empty} )
+            || $chunks[-1][-1]->{empty} )
         {
             push @chunks, [$line];
         }
