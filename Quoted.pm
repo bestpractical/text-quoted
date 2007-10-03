@@ -227,9 +227,8 @@ sub classify {
 
     # Reapply hangs
     for (@paras) {
-        next unless my $hang = $_->{hang};
-        next unless $hang->stringify;
-        $_->{text} = $hang->stringify . " " . $_->{text};
+        next unless my $str = $_->{hang}->stringify;
+        $_->{text} = $str . " " . $_->{text};
     }
     return @paras;
 }
