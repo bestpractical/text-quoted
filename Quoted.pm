@@ -178,11 +178,9 @@ sub classify {
         my %line = ( raw => $_ );
         s/\A *($quoter?)( *)//;
         $line{quoter}     = $1;
-        $line{quotespace} = $2;
         $line{hang} = Hang->new($_);
 
         s/( *)(.*?)(\s*)$//;
-        $line{hangspace} = $1;
         $line{text}      = $2;
         $line{empty}     = $line{hang}->empty() && $2 !~ /\S/;
         $line{separator} = $line{text} =~ /^$separator$/;
