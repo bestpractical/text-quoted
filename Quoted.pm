@@ -233,5 +233,4 @@ sub classify {
     return @paras;
 }
 
-sub val { return "" }
 1;
