@@ -226,7 +226,7 @@ sub classify {
     }
 
     # Reapply hangs
-    for (@paras) {
+    for (grep $_->{hang}, @paras) {
         next unless my $str = $_->{hang}->stringify;
         $_->{text} = $str . " " . $_->{text};
     }
