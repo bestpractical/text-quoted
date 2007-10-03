@@ -177,14 +177,14 @@ sub classify {
     foreach (splice @lines) {
         my %line = ( raw => $_ );
         s/\A( *)($quoter?)( *)//;
-        $line{prespace}   = defn $1;
-        $line{quoter}     = defn $2;
-        $line{quotespace} = defn $3;
-        $line{hang} = defn( Hang->new($_) );
+        $line{prespace}   = $1;
+        $line{quoter}     = $2;
+        $line{quotespace} = $3;
+        $line{hang} = Hang->new($_);
 
         s/( *)(.*?)(\s*)$//;
-        $line{hangspace} = defn $1;
-        $line{text}      = defn $2;
+        $line{hangspace} = $1;
+        $line{text}      = $2;
         $line{empty}     = $line{hang}->empty() && $2 !~ /\S/;
         $line{separator} = $line{text} =~ /^$separator$/;
         push @lines, \%line;
