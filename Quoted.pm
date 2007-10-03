@@ -177,18 +177,19 @@ sub classify {
     my $pre = 0;
     my @lines;
     foreach (@rawlines) {
-        push @lines, { raw => $_};
+        my %line = ( raw => $_ );
         s/\A([ \t]*)($quoter?)([ \t]*)//;
-        $lines[-1]{presig} = $lines[-1]{prespace} = defn $1;
-        $lines[-1]{presig} .= $lines[-1]{quoter}     = defn $2;
-        $lines[-1]{presig} .= $lines[-1]{quotespace} = defn $3;
-        $lines[-1]{hang} = defn( Hang->new($_) );
+        $line{presig} = $line{prespace} = defn $1;
+        $line{presig} .= $line{quoter}     = defn $2;
+        $line{presig} .= $line{quotespace} = defn $3;
+        $line{hang} = defn( Hang->new($_) );
 
         s/([ \t]*)(.*?)(\s*)$//;
-        $lines[-1]{hangspace} = defn $1;
-        $lines[-1]{text}      = defn $2;
-        $lines[-1]{empty}     = $lines[-1]{hang}->empty() && $2 !~ /\S/;
-        $lines[-1]{separator} = $lines[-1]{text} =~ /^$separator$/;
+        $line{hangspace} = defn $1;
+        $line{text}      = defn $2;
+        $line{empty}     = $line{hang}->empty() && $2 !~ /\S/;
+        $line{separator} = $line{text} =~ /^$separator$/;
+        push @lines, \%line;
     }
 
     # SUBDIVIDE DOCUMENT INTO COHERENT SUBSECTIONS
