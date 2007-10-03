@@ -174,7 +174,6 @@ sub classify {
 
     # PARSE EACH LINE
 
-    my $pre = 0;
     my @lines;
     foreach (@rawlines) {
         my %line = ( raw => $_ );
