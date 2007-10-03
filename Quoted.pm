@@ -169,13 +169,12 @@ sub classify {
     # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
-    my @rawlines = Text::Tabs::expand( split /\n/, $text );
+    my @lines = Text::Tabs::expand( split /\n/, $text );
 
 
     # PARSE EACH LINE
 
-    my @lines;
-    foreach (@rawlines) {
+    foreach (splice @lines) {
         my %line = ( raw => $_ );
         s/\A([ \t]*)($quoter?)([ \t]*)//;
         $line{presig} = $line{prespace} = defn $1;
