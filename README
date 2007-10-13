@@ -1,4 +1,4 @@
-Text/Quoted version 0.01
+Text::Quoted
 ========================
 
 The README is used to introduce the module and provide instructions on
@@ -21,17 +21,6 @@ To install this module type the following:
    make test
    make install
 
-DEPENDENCIES
+SEE ALSO
 
-This module requires these other modules and libraries:
-
-	Text::AutoFormat
-
-COPYRIGHT AND LICENCE
-
-
-Copyright (C) 2002 Simon Cozens
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
+`perldoc Text::Quoted`
