@@ -1,8 +1,9 @@
 --- 
 abstract: Extract the structure of a quoted mail message
-author: Jesse Vincent <jesse@bestpractical.com>
+author: 
+  - Jesse Vincent <jesse@bestpractical.com>
 distribution_type: module
-generated_by: Module::Install version 0.67
+generated_by: Module::Install version 0.68
 license: perl
 meta-spec: 
   url: http://module-build.sourceforge.net/META-spec-v1.3.html
@@ -16,4 +17,4 @@ requires:
   Text::Autoformat: 0
   Text::Tabs: 0
   perl: 5.6.0
-version: 2.02
+version: 2.03

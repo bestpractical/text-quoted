@@ -1,6 +1,6 @@
 Revision history for Perl extension Text::Quoted.
 
-2.03
+2.03 Wed Nov  7 2007
     - delete a lot of unused code
     - many micro optimisations
     - performance improvements, up to 1.5x in total
