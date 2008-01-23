@@ -8,6 +8,5 @@ author       'Jesse Vincent <jesse@bestpractical.com>';
 all_from    'Quoted.pm';
 
 requires    'Text::Autoformat';
-requires    'Text::Tabs';
 
 WriteAll;
