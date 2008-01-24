@@ -16,4 +16,4 @@ no_index:
 requires: 
   Text::Autoformat: 0
   perl: 5.6.0
-version: 2.04
+version: 2.05

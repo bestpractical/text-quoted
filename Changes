@@ -1,5 +1,9 @@
 Revision history for Perl extension Text::Quoted.
 
+2.05 Wed Jan 24 2008
+    - fix tests failure under perl 5.6.x,
+      thanks to David Cantrell for cpan testing it
+
 2.04 Wed Jan 23 2008
     - use own expand_tabs instead of Text::Tabs
     - avoid segfaults when pos() is used inside of regexp
