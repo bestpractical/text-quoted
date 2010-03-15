@@ -13,11 +13,31 @@ baz
 EOF
 
 is_deeply(extract($text), [
-        {text => 'foo', empty => '', quoter => '', raw => 'foo'},
-        {text => '============', empty => '', quoter => '', raw => '============', separator => 1 },
-        {text => 'bar', empty => '', quoter => '', raw => 'bar'},
-        {text => '============', empty => '', quoter => '', raw => '============', separator => 1 },
-        {text => 'baz', empty => '', quoter => '', raw => 'baz'},
+        {text => 'foo', quoter => '', raw => 'foo'},
+        {text => '============', quoter => '', raw => '============', separator => 1 },
+        {text => 'bar', quoter => '', raw => 'bar'},
+        {text => '============', quoter => '', raw => '============', separator => 1 },
+        {text => 'baz', quoter => '', raw => 'baz'},
+    ],
+    "Sample text is organized properly"
+) or diag Dumper(extract($text));
+
+$text = <<EOF;
+foo
+> bar
+> ============
+> baz
+> ============
+EOF
+
+is_deeply(extract($text), [
+        {text => 'foo', quoter => '', raw => 'foo'},
+        [
+            {text => 'bar', quoter => '>', raw => '> bar'},
+            {text => '============', quoter => '>', raw => '> ============', separator => 1 },
+            {text => 'baz', quoter => '>', raw => '> baz'},
+            {text => '============', quoter => '>', raw => '> ============', separator => 1 },
+        ],
     ],
     "Sample text is organized properly"
 ) or diag Dumper(extract($text));
