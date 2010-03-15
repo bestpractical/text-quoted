@@ -1,5 +1,13 @@
 Revision history for Perl extension Text::Quoted.
 
+2.06 Mon Mar 15 2010
+    - make extracting more effective
+    - line with only '=' characters is not treated as quoter
+      anymore, but separator
+    - mark separating lines with "separator => 1" hash entry
+    - don't return "empty => ''" hash key
+    - update tests
+
 2.05 Wed Jan 24 2008
     - fix tests failure under perl 5.6.x,
       thanks to David Cantrell for cpan testing it
