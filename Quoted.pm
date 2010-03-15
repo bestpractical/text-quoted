@@ -59,14 +59,7 @@ is the quotation string.
 =cut
 
 sub extract {
-    return organize( "",
-        map +{
-            raw    => $_->{'raw'},
-            empty  => $_->{'empty'},
-            text   => $_->{'text'},
-            quoter => $_->{'quoter'},
-        }, classify( @_ )
-    );
+    return organize( "", classify( @_ ) );
 }
 
 =head1 CREDITS
@@ -175,8 +168,8 @@ sub classify {
         my %line = ( raw => $_ );
         @line{'quoter', 'text'} = (/\A *((?:(?!$separator\s*\Z)$quoter)?) *(.*?)\s*\Z/o);
         $line{hang}      = Hang->new( $line{'text'} );
-        $line{empty}     = $line{hang}->empty() && $line{'text'} !~ /\S/;
-        $line{separator} = $line{text} =~ /^$separator$/o;
+        $line{empty}     = 1 if $line{hang}->empty() && $line{'text'} !~ /\S/;
+        $line{separator} = 1 if $line{text} =~ /\A *$separator *\Z/o;
         push @lines, \%line;
     }
 
@@ -223,8 +216,8 @@ sub classify {
     }
 
     # Reapply hangs
-    for (grep $_->{hang}, @paras) {
-        next unless my $str = $_->{hang}->stringify;
+    for (grep $_->{'hang'}, @paras) {
+        next unless my $str = (delete $_->{hang})->stringify;
         $_->{text} = $str . " " . $_->{text};
     }
     return @paras;
