@@ -156,7 +156,8 @@ sub defn($) { return $_[0] if (defined $_[0]); return "" }
 
 sub classify {
     my $text = shift;
-    $text = "" unless defined $text;
+    return { raw => undef, text => undef, quoter => undef }
+        unless defined $text && length $text;
     # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
