@@ -173,7 +173,7 @@ sub classify {
     # PARSE EACH LINE
     foreach (splice @lines) {
         my %line = ( raw => $_ );
-        @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/o);
+        @line{'quoter', 'text'} = (/\A *((?:(?!$separator\s*\Z)$quoter)?) *(.*?)\s*\Z/o);
         $line{hang}      = Hang->new( $line{'text'} );
         $line{empty}     = $line{hang}->empty() && $line{'text'} !~ /\S/;
         $line{separator} = $line{text} =~ /^$separator$/o;
