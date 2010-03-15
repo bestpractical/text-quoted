@@ -12,10 +12,10 @@ MANIFEST			This list of files
 META.yml
 Quoted.pm
 README
-t/1.t
-t/2.t
-t/3.t
-t/4.t
-t/5.t
-t/6.t
-t/7.t
+t/basics.t
+t/empty_text.t
+t/expand_tab_segfault.t
+t/life_sample.1.t
+t/life_sample.2.t
+t/life_sample.3.t
+t/separator.t
