@@ -147,11 +147,10 @@ sub find_below {
 
 # BITS OF A TEXT LINE
 
-my $quotechar  = qq{[!#%=|:]};
-my $quotechunk = qq{(?:$quotechar(?!\\w)|\\w*>+)};
-my $quoter     = qq{(?:(?i)(?:$quotechunk(?:[ \\t]*$quotechunk)*))};
-
-my $separator = q/(?:[-_]{2,}|[=#*]{3,}|[+~]{4,})/;
+my $quotechar  = qr/[!#%=|:]/;
+my $separator  = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
+my $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
+my $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
 
 sub defn($) { return $_[0] if (defined $_[0]); return "" }
 
@@ -166,7 +165,7 @@ sub classify {
     # PARSE EACH LINE
     foreach (splice @lines) {
         my %line = ( raw => $_ );
-        @line{'quoter', 'text'} = (/\A *((?:(?!$separator\s*\Z)$quoter)?) *(.*?)\s*\Z/o);
+        @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/o);
         $line{hang}      = Hang->new( $line{'text'} );
         $line{empty}     = 1 if $line{hang}->empty() && $line{'text'} !~ /\S/;
         $line{separator} = 1 if $line{text} =~ /\A *$separator *\Z/o;
