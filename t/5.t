@@ -19,13 +19,12 @@ use Data::Dumper;
 $empty_deeply = [
           {
             'text' => undef,
-            'empty' => undef,
             'quoter' => undef,
             'raw' => undef
           }
         ];
 
-is_deeply(extract($a),$empty_deeply);
+is_deeply(extract($a),$empty_deeply) or diag Dumper(extract($a));
 $b = undef;
-is_deeply(extract($b),$empty_deeply);
+is_deeply(extract($b),$empty_deeply) or diag Dumper(extract($b));
 

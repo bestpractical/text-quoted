@@ -22,12 +22,12 @@ quux
 EOF
 
 is_deeply(extract($a),
-[[{text => 'foo',empty => '',quoter => '>',raw => '> foo'},
-  [{text => 'Bar',empty => '',quoter => '> #',raw => '> # Bar'}],
-  {text => 'baz',empty => '',quoter => '>',raw => '> baz'}
+[[{text => 'foo',quoter => '>',raw => '> foo'},
+  [{text => 'Bar',quoter => '> #',raw => '> # Bar'}],
+  {text => 'baz',quoter => '>',raw => '> baz'}
  ],
  {text => '',empty => '1',quoter => '',raw => ''},
- {text => 'quux',empty => '',quoter => '',raw => 'quux'}],
+ {text => 'quux',quoter => '',raw => 'quux'}],
 "Sample text is organized properly");
 
 $b = <<EOF;
@@ -43,17 +43,17 @@ $b_dump =
 [
       { text => '', empty => '1', quoter => '', raw => '' },
       [
-        { text => 'foo', empty => '', quoter => '>', raw => '> foo' },
+        { text => 'foo', quoter => '>', raw => '> foo' },
         [
           [
-            { text => 'baz', empty => '', quoter => '> > >',
+            { text => 'baz', quoter => '> > >',
               raw => '> > > baz' }
           ],
-          { text => 'quux', empty => '', quoter => '> >', raw => '> > quux' }
+          { text => 'quux', quoter => '> >', raw => '> > quux' }
         ],
-        { text => 'quuux', empty => '', quoter => '>', raw => '> quuux' }
+        { text => 'quuux', quoter => '>', raw => '> quuux' }
       ],
-      { text => 'quuuux', empty => '', quoter => '', raw => 'quuuux' }
+      { text => 'quuuux', quoter => '', raw => 'quuuux' }
     ];
 
 

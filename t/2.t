@@ -45,7 +45,6 @@ $expected = [
                 'quoter' => '>>>>>',
                 'text' => '"dc" == darren chamberlain writes:',
                 'raw' => '>>>>> "dc" == darren chamberlain writes:',
-                'empty' => ''
               }
             ]
           ],
@@ -64,7 +63,6 @@ that uses Template gets executed.',
               'raw' => '>> If I don\'t do "use Template;" in my startup script, each child will
 >> get the pleasure of loading and compiling it all when the first script
 >> that uses Template gets executed.',
-              'empty' => ''
             }
           ],
           {
@@ -80,7 +78,6 @@ that uses Template gets executed.',
 happens to use Template, in which case you\'ll be OK.',
               'raw' => 'dc> Unless one of the other modules that you use in your startup script
 dc> happens to use Template, in which case you\'ll be OK.',
-              'empty' => ''
             }
           ],
           {
@@ -93,7 +90,6 @@ dc> happens to use Template, in which case you\'ll be OK.',
             'quoter' => '',
             'text' => 'Well, that\'s still "use Template;" as far as I\'m concerned.',
             'raw' => 'Well, that\'s still "use Template;" as far as I\'m concerned.',
-            'empty' => ''
           },
           {
             'quoter' => '',
@@ -109,7 +105,6 @@ template.',
             'raw' => 'I was really just being pedantic...  but think of a hosting situation
 where the startup is pretty bare, and some Registry program uses the
 template.',
-            'empty' => ''
           },
           {
             'quoter' => '',
@@ -123,7 +118,6 @@ template.',
 even if it does the right thing most of the time.',
             'raw' => 'I personally don\'t think the preload should be called automagically,
 even if it does the right thing most of the time.',
-            'empty' => ''
           },
           {
             'quoter' => '',
@@ -132,10 +126,10 @@ even if it does the right thing most of the time.',
             'empty' => '1'
           },
           {
+            'separator' => '1',
             'quoter' => '',
             'text' => '_______________________________________________',
             'raw' => '_______________________________________________',
-            'empty' => ''
           },
           {
             'quoter' => '',
@@ -145,7 +139,6 @@ http://www.template-toolkit.org/mailman/listinfo/templates',
             'raw' => 'templates mailing list
 templates@template-toolkit.org
 http://www.template-toolkit.org/mailman/listinfo/templates',
-            'empty' => ''
           }
         ];
 

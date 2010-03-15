@@ -36,7 +36,6 @@ $expected = [
 zxc',
             'raw' => 'From: "Brian Christopher Robinson" <brian.c.robinson@trw.com>
 zxc',
-            'empty' => ''
           },
           [
             [
@@ -52,7 +51,6 @@ work.',
 > > faciliitated by worked very hard for a reasonably workday, then
 > > leaving... thus having time to deal with personal issues when not at
 > > work.',
-                'empty' => ''
               }
             ]
           ],
@@ -60,21 +58,18 @@ work.',
             'quoter' => '',
             'text' => 'iabc',
             'raw' => 'iabc',
-            'empty' => ''
           },
           [
             {
               'quoter' => '>',
               'text' => 'Unfortunately, personal issues can\'t be conveniently shoved aside',
               'raw' => '> Unfortunately, personal issues can\'t be conveniently shoved aside',
-              'empty' => ''
             }
           ],
           {
             'quoter' => '',
             'text' => 'eight',
             'raw' => 'eight',
-            'empty' => ''
           },
           [
             {
@@ -83,14 +78,12 @@ work.',
 realted to picking them up and dropping them off at various times, as',
               'raw' => '> hours a day.  People with kids especially have to deal with issues
 > realted to picking them up and dropping them off at various times, as',
-              'empty' => ''
             }
           ],
           {
             'quoter' => '',
             'text' => 'x',
             'raw' => 'x',
-            'empty' => ''
           }
         ];
 

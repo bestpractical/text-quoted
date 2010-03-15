@@ -14,9 +14,9 @@ EOF
 my $a_data = 
     [
        [ 
-         { 'text' => 'a', 'empty' => '', 'quoter' => '>', 'raw' => '> a' },
-         [ { 'text' => 'b', 'empty' => '', 'quoter' => '>>', 'raw' => '>> b' } ],
-         { 'text' => 'c', 'empty' => '', 'quoter' => '>', 'raw' => '> c' }
+         { 'text' => 'a', 'quoter' => '>', 'raw' => '> a' },
+         [ { 'text' => 'b', 'quoter' => '>>', 'raw' => '>> b' } ],
+         { 'text' => 'c', 'quoter' => '>', 'raw' => '> c' }
        ]
     ];
 
@@ -33,9 +33,9 @@ EOF
 
 $a_data = 
     [
-       [ { 'text' => 'a', 'empty' => '', 'quoter' => '>', 'raw' => '> a' } ],
-       [ { 'text' => 'b', 'empty' => '', 'quoter' => '=>', 'raw' => '=> b' } ],
-       [ { 'text' => 'c', 'empty' => '', 'quoter' => '>', 'raw' => '> c' } ]
+       [ { 'text' => 'a', 'quoter' => '>', 'raw' => '> a' } ],
+       [ { 'text' => 'b', 'quoter' => '=>', 'raw' => '=> b' } ],
+       [ { 'text' => 'c', 'quoter' => '>', 'raw' => '> c' } ]
     ];
 
 is_deeply(extract($a),$a_data,"correctly parse => delimiter");
@@ -54,11 +54,11 @@ EOF
 
 $a_data = 
     [
-       [ { 'text' => 'a', 'empty' => '', 'quoter' => '>', 'raw' => '> a' } ],
+       [ { 'text' => 'a', 'quoter' => '>', 'raw' => '> a' } ],
        { 'text' => '', 'empty' => 1, 'quoter' => '', 'raw' => '' },
-       [ { 'text' => 'b', 'empty' => '', 'quoter' => '=>', 'raw' => '=> b' } ],
+       [ { 'text' => 'b', 'quoter' => '=>', 'raw' => '=> b' } ],
        { 'text' => '', 'empty' => 1, 'quoter' => '', 'raw' => '' },
-       [ { 'text' => 'c', 'empty' => '', 'quoter' => '>', 'raw' => '> c' } ]
+       [ { 'text' => 'c', 'quoter' => '>', 'raw' => '> c' } ]
     ];
 
 is_deeply(extract($a),$a_data,"correctly parse => delimiter with blank lines");
@@ -93,9 +93,9 @@ EOF
 
 $a_data = 
     [
-       [ { 'text' => 'a', 'empty' => '', 'quoter' => '>', 'raw' => '> a' } ],
-       { 'text' => 'cpan > b', 'empty' => '', 'quoter' => '', 'raw' => 'cpan > b' },
-       [ { 'text' => 'c', 'empty' => '', 'quoter' => '>', 'raw' => '> c' } ],
+       [ { 'text' => 'a', 'quoter' => '>', 'raw' => '> a' } ],
+       { 'text' => 'cpan > b', 'quoter' => '', 'raw' => 'cpan > b' },
+       [ { 'text' => 'c', 'quoter' => '>', 'raw' => '> c' } ],
     ];
 
 is_deeply(extract($a),$a_data,"correctly handles a non-delimiter");
