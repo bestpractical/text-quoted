@@ -1,5 +1,5 @@
 package Text::Quoted;
-our $VERSION = "2.05";
+our $VERSION = "2.06";
 use 5.006;
 use strict;
 use warnings;
