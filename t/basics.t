@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 9;
+use Test::More tests => 10;
 BEGIN { use_ok('Text::Quoted') };
 
 use Data::Dumper;
@@ -172,4 +172,21 @@ $a_dump = [
 ];
 
 is_deeply(extract($a),$a_dump,"customize quote char");
+
+Text::Quoted::set_quote_char( undef );
+$a = <<'EOF';
+a
+# b
+c
+EOF
+
+$a_dump = [
+    {
+        'text'   => "a\n# b\nc",
+        'quoter' => '',
+        'raw'    => "a\n# b\nc"
+    },
+];
+
+is_deeply( extract($a), $a_dump, "customize quote char to exclude all" );
 

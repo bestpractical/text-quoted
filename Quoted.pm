@@ -245,7 +245,12 @@ sub expand_tabs {
 sub set_quote_char {
     my $regex = shift;
     $quotechar = $regex;
-    $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
+    if ($quotechar) {
+        $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
+    }
+    else {
+        $quotechunk = qr/(?!$separator *\z)\w*>+/;
+    }
     $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
 }
 
