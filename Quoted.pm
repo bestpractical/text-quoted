@@ -18,6 +18,7 @@ Text::Quoted - Extract the structure of a quoted mail message
 =head1 SYNOPSIS
 
     use Text::Quoted;
+    Text::Quoted::set_quote_char( qr/[:]/ ); # customize quote char
     my $structure = extract($text);
 
 =head1 DESCRIPTION
@@ -166,7 +167,7 @@ sub classify {
     # PARSE EACH LINE
     foreach (splice @lines) {
         my %line = ( raw => $_ );
-        @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/o);
+        @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/);
         $line{hang}      = Hang->new( $line{'text'} );
         $line{empty}     = 1 if $line{hang}->empty() && $line{'text'} !~ /\S/;
         $line{separator} = 1 if $line{text} =~ /\A *$separator *\Z/o;
@@ -240,5 +241,13 @@ sub expand_tabs {
     }
     return @_;
 }
+
+sub set_quote_char {
+    my $regex = shift;
+    $quotechar = $regex;
+    $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
+    $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
+}
+
 
 1;
