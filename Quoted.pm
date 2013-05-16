@@ -148,10 +148,18 @@ sub find_below {
 
 # BITS OF A TEXT LINE
 
-my $quotechar  = qr/[!#%=|:]/;
-my $separator  = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
-my $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
-my $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
+my $separator = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
+my ($quotechar, $quotechunk, $quoter);
+
+set_quote_char(qr/[!#%=|:]/);
+
+sub set_quote_char {
+    $quotechar  = shift;
+    $quotechunk = $quotechar
+        ? qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/
+        : qr/(?!$separator *\z)\w*>+/;
+    $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
+}
 
 sub defn($) { return $_[0] if (defined $_[0]); return "" }
 
@@ -241,18 +249,5 @@ sub expand_tabs {
     }
     return @_;
 }
-
-sub set_quote_char {
-    my $regex = shift;
-    $quotechar = $regex;
-    if ($quotechar) {
-        $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
-    }
-    else {
-        $quotechunk = qr/(?!$separator *\z)\w*>+/;
-    }
-    $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
-}
-
 
 1;
