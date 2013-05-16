@@ -148,7 +148,7 @@ $a_dump =
 
 is_deeply(extract($a),$a_dump,"correctly handles a non-delimiter");
 
-Text::Quoted::set_quote_char( qr/[!]/ );
+Text::Quoted::set_quote_characters( qr/[!]/ );
 $a = <<'EOF';
 a
 # b
@@ -173,7 +173,7 @@ $a_dump = [
 
 is_deeply(extract($a),$a_dump,"customize quote char");
 
-Text::Quoted::set_quote_char( undef );
+Text::Quoted::set_quote_characters( undef );
 $a = <<'EOF';
 a
 # b

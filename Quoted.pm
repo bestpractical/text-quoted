@@ -18,7 +18,7 @@ Text::Quoted - Extract the structure of a quoted mail message
 =head1 SYNOPSIS
 
     use Text::Quoted;
-    Text::Quoted::set_quote_char( qr/[:]/ ); # customize quote char
+    Text::Quoted::set_quote_characters( qr/[:]/ ); # customize recognized quote characters
     my $structure = extract($text);
 
 =head1 DESCRIPTION
@@ -151,9 +151,9 @@ sub find_below {
 my $separator = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
 my ($quotechar, $quotechunk, $quoter);
 
-set_quote_char(qr/[!#%=|:]/);
+set_quote_characters(qr/[!#%=|:]/);
 
-sub set_quote_char {
+sub set_quote_characters {
     $quotechar  = shift;
     $quotechunk = $quotechar
         ? qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/
