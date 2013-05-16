@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 8;
+use Test::More tests => 10;
 BEGIN { use_ok('Text::Quoted') };
 
 use Data::Dumper;
@@ -147,4 +147,46 @@ $a_dump =
     ];
 
 is_deeply(extract($a),$a_dump,"correctly handles a non-delimiter");
+
+Text::Quoted::set_quote_characters( qr/[!]/ );
+$a = <<'EOF';
+a
+# b
+c
+! d
+EOF
+
+$a_dump = [
+    {
+        'text'   => "a\n# b\nc",
+        'quoter' => '',
+        'raw'    => "a\n# b\nc"
+    },
+    [
+        {
+            'text'   => "d",
+            'quoter' => '!',
+            'raw'    => "! d"
+        },
+    ]
+];
+
+is_deeply(extract($a),$a_dump,"customize quote char");
+
+Text::Quoted::set_quote_characters( undef );
+$a = <<'EOF';
+a
+# b
+c
+EOF
+
+$a_dump = [
+    {
+        'text'   => "a\n# b\nc",
+        'quoter' => '',
+        'raw'    => "a\n# b\nc"
+    },
+];
+
+is_deeply( extract($a), $a_dump, "customize quote char to exclude all" );
 

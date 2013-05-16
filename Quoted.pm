@@ -8,6 +8,7 @@ require Exporter;
 
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(extract);
+our @EXPORT_OK = qw(set_quote_characters);
 
 use Text::Autoformat();    # Provides the Hang package, heh, heh.
 
@@ -18,6 +19,7 @@ Text::Quoted - Extract the structure of a quoted mail message
 =head1 SYNOPSIS
 
     use Text::Quoted;
+    Text::Quoted::set_quote_characters( qr/[:]/ ); # customize recognized quote characters
     my $structure = extract($text);
 
 =head1 DESCRIPTION
@@ -56,30 +58,20 @@ paragraph of text as it appeared in the original input; C<text> is what
 it looked like when we stripped off the quotation characters, and C<quoter>
 is the quotation string.
 
+=head1 FUNCTIONS
+
+=head2 extract
+
+Takes a single string argument which is the text to extract quote structure
+from.  Returns a nested datastructure as described above.
+
+Exported by default.
+
 =cut
 
 sub extract {
     return organize( "", classify( @_ ) );
 }
-
-=head1 CREDITS
-
-Most of the heavy lifting is done by a modified version of Damian Conway's
-C<Text::Autoformat>.
-
-=head1 COPYRIGHT
-
-Copyright (C) 2002-2003 Kasei Limited
-Copyright (C) 2003-2004 Simon Cozens
-Copyright (C) 2004 Best Practical Solutions, LLC
-
-This software is distributed WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
-=cut
 
 sub organize {
     my $top_level = shift;
@@ -147,10 +139,34 @@ sub find_below {
 
 # BITS OF A TEXT LINE
 
-my $quotechar  = qr/[!#%=|:]/;
-my $separator  = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
-my $quotechunk = qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/;
-my $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
+=head2 set_quote_characters
+
+Takes a regex (C<qr//>) matching characters that should indicate a quoted line.
+By default, a very liberal set is used:
+
+    set_quote_characters(qr/[!#%=|:]/);
+
+The character C<< E<gt> >> is always recognized as a quoting character.
+
+If C<undef> is provided instead of a regex, only C<< E<gt> >> will remain as a
+quote character.
+
+Not exported by default, but exportable.
+
+=cut
+
+my $separator = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
+my ($quotechar, $quotechunk, $quoter);
+
+set_quote_characters(qr/[!#%=|:]/);
+
+sub set_quote_characters {
+    $quotechar  = shift;
+    $quotechunk = $quotechar
+        ? qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/
+        : qr/(?!$separator *\z)\w*>+/;
+    $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
+}
 
 sub defn($) { return $_[0] if (defined $_[0]); return "" }
 
@@ -166,7 +182,7 @@ sub classify {
     # PARSE EACH LINE
     foreach (splice @lines) {
         my %line = ( raw => $_ );
-        @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/o);
+        @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/);
         $line{hang}      = Hang->new( $line{'text'} );
         $line{empty}     = 1 if $line{hang}->empty() && $line{'text'} !~ /\S/;
         $line{separator} = 1 if $line{text} =~ /\A *$separator *\Z/o;
@@ -240,5 +256,24 @@ sub expand_tabs {
     }
     return @_;
 }
+
+=head1 CREDITS
+
+Most of the heavy lifting is done by a modified version of Damian Conway's
+C<Text::Autoformat>.
+
+=head1 COPYRIGHT
+
+Copyright (C) 2002-2003 Kasei Limited
+Copyright (C) 2003-2004 Simon Cozens
+Copyright (C) 2004-2013 Best Practical Solutions, LLC
+
+This software is distributed WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+
+=cut
 
 1;
