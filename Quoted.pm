@@ -63,25 +63,6 @@ sub extract {
     return organize( "", classify( @_ ) );
 }
 
-=head1 CREDITS
-
-Most of the heavy lifting is done by a modified version of Damian Conway's
-C<Text::Autoformat>.
-
-=head1 COPYRIGHT
-
-Copyright (C) 2002-2003 Kasei Limited
-Copyright (C) 2003-2004 Simon Cozens
-Copyright (C) 2004 Best Practical Solutions, LLC
-
-This software is distributed WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
-
-=cut
-
 sub organize {
     my $top_level = shift;
     my @todo      = @_;
@@ -249,5 +230,24 @@ sub expand_tabs {
     }
     return @_;
 }
+
+=head1 CREDITS
+
+Most of the heavy lifting is done by a modified version of Damian Conway's
+C<Text::Autoformat>.
+
+=head1 COPYRIGHT
+
+Copyright (C) 2002-2003 Kasei Limited
+Copyright (C) 2003-2004 Simon Cozens
+Copyright (C) 2004-2013 Best Practical Solutions, LLC
+
+This software is distributed WITHOUT ANY WARRANTY; without even the implied
+warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+
+=cut
 
 1;
