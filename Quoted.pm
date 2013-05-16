@@ -8,6 +8,7 @@ require Exporter;
 
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(extract);
+our @EXPORT_OK = qw(set_quote_characters);
 
 use Text::Autoformat();    # Provides the Hang package, heh, heh.
 
@@ -56,6 +57,15 @@ This also tells you about what's in the hash references: C<raw> is the
 paragraph of text as it appeared in the original input; C<text> is what
 it looked like when we stripped off the quotation characters, and C<quoter>
 is the quotation string.
+
+=head1 FUNCTIONS
+
+=head2 extract
+
+Takes a single string argument which is the text to extract quote structure
+from.  Returns a nested datastructure as described above.
+
+Exported by default.
 
 =cut
 
@@ -128,6 +138,22 @@ sub find_below {
 # Everything below this point is essentially Text::Autoformat.
 
 # BITS OF A TEXT LINE
+
+=head2 set_quote_characters
+
+Takes a regex (C<qr//>) matching characters that should indicate a quoted line.
+By default, a very liberal set is used:
+
+    set_quote_characters(qr/[!#%=|:]/);
+
+The character C<< E<gt> >> is always recognized as a quoting character.
+
+If C<undef> is provided instead of a regex, only C<< E<gt> >> will remain as a
+quote character.
+
+Not exported by default, but exportable.
+
+=cut
 
 my $separator = qr/[-_]{2,} | [=#*]{3,} | [+~]{4,}/x;
 my ($quotechar, $quotechunk, $quoter);
