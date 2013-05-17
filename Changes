@@ -1,5 +1,9 @@
 Revision history for Perl extension Text::Quoted.
 
+2.07    Thu May 16 18:18:01 PDT 2013
+    - Add set_quote_characters() function to control what additional characters
+      are treated as quoting chars (above and beyond ">")
+
 2.06 Mon Mar 15 2010
     - make extracting more effective
     - line with only '=' characters is not treated as quoter
