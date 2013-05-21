@@ -168,8 +168,6 @@ sub set_quote_characters {
     $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
 }
 
-sub defn($) { return $_[0] if (defined $_[0]); return "" }
-
 sub _classify {
     my $text = shift;
     return { raw => undef, text => undef, quoter => undef }
