@@ -135,8 +135,6 @@ sub _find_below {
     )[0];
 }
 
-# Everything below this point is essentially Text::Autoformat.
-
 # BITS OF A TEXT LINE
 
 =head2 set_quote_characters
