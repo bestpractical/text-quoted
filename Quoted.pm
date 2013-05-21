@@ -8,7 +8,7 @@ require Exporter;
 
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(extract);
-our @EXPORT_OK = qw(set_quote_characters);
+our @EXPORT_OK = qw(set_quote_characters combine_hunks);
 
 use Text::Autoformat();    # Provides the Hang package, heh, heh.
 
@@ -164,6 +164,23 @@ sub set_quote_characters {
         ? qr/(?!$separator *\z)(?:$quotechar(?!\w)|\w*>+)/
         : qr/(?!$separator *\z)\w*>+/;
     $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
+}
+
+=head2 combine_hunks
+
+  my $text = combine_hunks( $arrayref_of_hunks );
+
+Takes the output of C<extract> and turns it back into text.
+
+Not exported by default, but exportable.
+
+=cut
+
+sub combine_hunks {
+    my ($hunks) = @_;
+
+    join "",
+      map {; ref $_ eq 'HASH' ? "$_->{raw}\n" : combine_hunks($_) } @$hunks;
 }
 
 sub _classify {
