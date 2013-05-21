@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 1;
+use Test::More tests => 2;
 use Text::Quoted;
 
 #########################
@@ -145,3 +145,9 @@ http://www.template-toolkit.org/mailman/listinfo/templates',
 
 is_deeply(extract($a), $expected, 
           "Supercite doesn't screw me up as badly as before");
+
+is(
+    Text::Quoted::combine_hunks( extract($a) ),
+    $a,
+    "round-trips okay",
+);

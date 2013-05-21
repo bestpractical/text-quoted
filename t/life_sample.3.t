@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 1;
+use Test::More tests => 2;
 use Text::Quoted;
 
 # I don't really care what the results are, so long as we don't
@@ -16,3 +16,9 @@ my $ntk = <<'NTK';
 NTK
 
 ok(extract($ntk), "It's not pretty, but at least it works");
+
+is(
+    Text::Quoted::combine_hunks( extract($ntk) ),
+    $ntk,
+    "round-trips okay",
+);
