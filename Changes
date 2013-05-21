@@ -1,7 +1,9 @@
 Revision history for Perl extension Text::Quoted.
 
-2.08
-    - add a combine_hunks function to recombine hunks
+2.08    Tue May 21 11:40:04 PDT 2013
+    - add a combine_hunks function to recombine hunks (RJBS)
+    - implicitly private methods are now underscore private: organize,
+      find_below, classify, expand_tabs (RJBS)
 
 2.07    Thu May 16 18:18:01 PDT 2013
     - Add set_quote_characters() function to control what additional characters
