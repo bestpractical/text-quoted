@@ -8,7 +8,7 @@ require Exporter;
 
 our @ISA    = qw(Exporter);
 our @EXPORT = qw(extract);
-our @EXPORT_OK = qw(set_quote_characters);
+our @EXPORT_OK = qw(set_quote_characters combine_hunks);
 
 use Text::Autoformat();    # Provides the Hang package, heh, heh.
 
@@ -70,10 +70,10 @@ Exported by default.
 =cut
 
 sub extract {
-    return organize( "", classify( @_ ) );
+    return _organize( "", _classify( @_ ) );
 }
 
-sub organize {
+sub _organize {
     my $top_level = shift;
     my @todo      = @_;
     $top_level = '' unless defined $top_level;
@@ -94,17 +94,17 @@ sub organize {
         elsif ( $q =~ /^\Q$top_level\E./ ) {
 
             # Find all the lines at a quoting level "below" me.
-            my $newquoter = find_below( $top_level, $line, @todo );
+            my $newquoter = _find_below( $top_level, $line, @todo );
             my @next = $line;
             push @next, shift @todo while defined $todo[0]->{quoter}
               and $todo[0]->{quoter} =~ /^\Q$newquoter/;
 
             # Find the 
-            # And pass them on to organize()!
+            # And pass them on to _organize()!
             #print "Trying to organise the following lines over $newquoter:\n";
             #print $_->{raw}."\n" for @next;
             #print "!-!-!-\n";
-            push @ret, organize( $newquoter, @next );
+            push @ret, _organize( $newquoter, @next );
         } #  else { die "bugger! I had $top_level, but now I have $line->{raw}\n"; }
     }
     return \@ret;
@@ -121,7 +121,7 @@ sub organize {
 # is incorrect - "> >" is actually a "sub-quote" of ">". This routine
 # works out which is the next level below us.
 
-sub find_below {
+sub _find_below {
     my ( $top_level, @stuff ) = @_;
 
     # Find the prefices, shortest first.
@@ -134,8 +134,6 @@ sub find_below {
         @stuff 
     )[0];
 }
-
-# Everything below this point is essentially Text::Autoformat.
 
 # BITS OF A TEXT LINE
 
@@ -168,16 +166,31 @@ sub set_quote_characters {
     $quoter     = qr/$quotechunk(?:[ \t]*$quotechunk)*/;
 }
 
-sub defn($) { return $_[0] if (defined $_[0]); return "" }
+=head2 combine_hunks
 
-sub classify {
+  my $text = combine_hunks( $arrayref_of_hunks );
+
+Takes the output of C<extract> and turns it back into text.
+
+Not exported by default, but exportable.
+
+=cut
+
+sub combine_hunks {
+    my ($hunks) = @_;
+
+    join "",
+      map {; ref $_ eq 'HASH' ? "$_->{raw}\n" : combine_hunks($_) } @$hunks;
+}
+
+sub _classify {
     my $text = shift;
     return { raw => undef, text => undef, quoter => undef }
         unless defined $text && length $text;
     # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
-    my @lines = expand_tabs( split /\n/, $text );
+    my @lines = _expand_tabs( split /\n/, $text );
 
     # PARSE EACH LINE
     foreach (splice @lines) {
@@ -244,7 +257,7 @@ sub classify {
 # This bug unlikely to be fixed in 5.8.x, however we use workaround.
 # As soon as Text::Tabs will be fixed we can return back to it
 my $tabstop = 8;
-sub expand_tabs {
+sub _expand_tabs {
     my $pad;
     for ( @_ ) {
         my $offs = 0;
