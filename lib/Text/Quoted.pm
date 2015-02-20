@@ -19,18 +19,20 @@ Text::Quoted - Extract the structure of a quoted mail message
 =head1 SYNOPSIS
 
     use Text::Quoted;
-    Text::Quoted::set_quote_characters( qr/[:]/ ); # customize recognized quote characters
     my $structure = extract($text);
+
+    # Optionally, customize recognized quote characters:
+    Text::Quoted::set_quote_characters( qr/[:]/ );
 
 =head1 DESCRIPTION
 
 C<Text::Quoted> examines the structure of some text which may contain
 multiple different levels of quoting, and turns the text into a nested
-data structure. 
+data structure.
 
 The structure is an array reference containing hash references for each
-paragraph belonging to the same author. Each level of quoting recursively
-adds another list reference. So for instance, this:
+paragraph belonging to the same author. Each level of quoting
+recursively adds another list reference. So for instance, this:
 
     > foo
     > # Bar
@@ -43,8 +45,8 @@ turns into:
     [
       [
         { text => 'foo', quoter => '>', raw => '> foo' },
-        [ 
-            { text => 'Bar', quoter => '> #', raw => '> # Bar' } 
+        [
+            { text => 'Bar', quoter => '> #', raw => '> # Bar' }
         ],
         { text => 'baz', quoter => '>', raw => '> baz' }
       ],
@@ -55,15 +57,15 @@ turns into:
 
 This also tells you about what's in the hash references: C<raw> is the
 paragraph of text as it appeared in the original input; C<text> is what
-it looked like when we stripped off the quotation characters, and C<quoter>
-is the quotation string.
+it looked like when we stripped off the quotation characters, and
+C<quoter> is the quotation string.
 
 =head1 FUNCTIONS
 
 =head2 extract
 
-Takes a single string argument which is the text to extract quote structure
-from.  Returns a nested datastructure as described above.
+Takes a single string argument which is the text to extract quote
+structure from.  Returns a nested datastructure as described above.
 
 Exported by default.
 
@@ -99,7 +101,7 @@ sub _organize {
             push @next, shift @todo while defined $todo[0]->{quoter}
               and $todo[0]->{quoter} =~ /^\Q$newquoter/;
 
-            # Find the 
+            # Find the
             # And pass them on to _organize()!
             #print "Trying to organise the following lines over $newquoter:\n";
             #print $_->{raw}."\n" for @next;
@@ -124,14 +126,14 @@ sub _organize {
 sub _find_below {
     my ( $top_level, @stuff ) = @_;
 
-    # Find the prefices, shortest first.
-    # And return the first one which is "below" where we are right
-    # now but is a proper subset of the next line. 
+    # Find the prefixes, shortest first; return the first one which is
+    # "below" where we are right now but is a proper subset of the next
+    # line.
     return (
         sort { length $a <=> length $b }
         grep $_ && /^\Q$top_level\E./ && $stuff[0]->{quoter} =~ /^\Q$_\E/,
         map $_->{quoter},
-        @stuff 
+        @stuff
     )[0];
 }
 
@@ -139,15 +141,15 @@ sub _find_below {
 
 =head2 set_quote_characters
 
-Takes a regex (C<qr//>) matching characters that should indicate a quoted line.
-By default, a very liberal set is used:
+Takes a regex (C<qr//>) matching characters that should indicate a
+quoted line.  By default, a very liberal set is used:
 
     set_quote_characters(qr/[!#%=|:]/);
 
 The character C<< E<gt> >> is always recognized as a quoting character.
 
-If C<undef> is provided instead of a regex, only C<< E<gt> >> will remain as a
-quote character.
+If C<undef> is provided instead of a regex, only C<< E<gt> >> will
+remain as a quote character.
 
 Not exported by default, but exportable.
 
@@ -232,7 +234,7 @@ sub _classify {
             {
                 push @paras, $line;
                 $first     = 0;
-		# We get warnings from undefined raw and text values if we don't supply alternates
+                # We get warnings from undefined raw and text values if we don't supply alternates
                 $firstfrom = length( $line->{raw} ||'' ) - length( $line->{text} || '');
             }
             else {
@@ -272,8 +274,8 @@ sub _expand_tabs {
 
 =head1 CREDITS
 
-Most of the heavy lifting is done by a modified version of Damian Conway's
-C<Text::Autoformat>.
+Most of the heavy lifting is done by a modified version of Damian
+Conway's C<Text::Autoformat>.
 
 =head1 AUTHOR
 
