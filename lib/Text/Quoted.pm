@@ -275,17 +275,16 @@ sub _expand_tabs {
 Most of the heavy lifting is done by a modified version of Damian Conway's
 C<Text::Autoformat>.
 
-=head1 COPYRIGHT
+=head1 AUTHOR
 
-Copyright (C) 2002-2003 Kasei Limited
-Copyright (C) 2003-2004 Simon Cozens
-Copyright (C) 2004-2013 Best Practical Solutions, LLC
+Best Practical Solutions, LLC E<lt>modules@bestpractical.comE<gt>
 
-This software is distributed WITHOUT ANY WARRANTY; without even the implied
-warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+=head1 LICENSE AND COPYRIGHT
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself. 
+This software is Copyright (c) 2004-2015 by Best Practical Solutions, LLC
+
+This library is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
 
 =cut
 
