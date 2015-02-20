@@ -5,7 +5,7 @@ name        'Text-Quoted';
 license     'perl';
 author       'Jesse Vincent <jesse@bestpractical.com>';
 
-all_from    'Quoted.pm';
+all_from    'lib/Text/Quoted.pm';
 
 requires    'Text::Autoformat';
 
