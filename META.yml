@@ -21,6 +21,7 @@ no_index:
     - t
 requires:
   Text::Autoformat: 0
+  Text::Tabs: 0
   perl: 5.6.0
 resources:
   license: http://dev.perl.org/licenses/

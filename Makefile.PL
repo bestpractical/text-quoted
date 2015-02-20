@@ -5,6 +5,7 @@ all_from 'lib/Text/Quoted.pm';
 readme_from 'lib/Text/Quoted.pm';
 
 requires 'Text::Autoformat';
+requires 'Text::Tabs';
 
 sign;
 WriteAll;

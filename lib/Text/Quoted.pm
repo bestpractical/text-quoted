@@ -15,6 +15,8 @@ our @EXPORT_OK = qw(set_quote_characters combine_hunks);
 use Text::Autoformat();
 my $hang_package = Hang->can('new') ? "Hang" : "Text::Autoformat::Hang";
 
+use Text::Tabs();
+
 =head1 NAME
 
 Text::Quoted - Extract the structure of a quoted mail message
@@ -191,7 +193,7 @@ sub _classify {
     # If the user passes in a null string, we really want to end up with _something_
 
     # DETABIFY
-    my @lines = _expand_tabs( split /\n/, $text );
+    my @lines = Text::Tabs::expand( split /\n/, $text );
 
     # PARSE EACH LINE
     foreach (splice @lines) {
@@ -251,24 +253,6 @@ sub _classify {
         $_->{text} = $str . " " . $_->{text};
     }
     return @paras;
-}
-
-# we don't use Text::Tabs anymore as it may segfault on perl 5.8.x with
-# UTF-8 strings and tabs mixed. http://rt.perl.org/rt3/Public/Bug/Display.html?id=40989
-# This bug unlikely to be fixed in 5.8.x, however we use workaround.
-# As soon as Text::Tabs will be fixed we can return back to it
-my $tabstop = 8;
-sub _expand_tabs {
-    my $pad;
-    for ( @_ ) {
-        my $offs = 0;
-        s{(.*?)\t}{
-            $pad = $tabstop - (length($1) + $offs) % $tabstop;
-            $offs += length($1)+$pad;
-            $1 . (" " x $pad);
-        }eg;
-    }
-    return @_;
 }
 
 =head1 CREDITS
