@@ -10,7 +10,10 @@ our @ISA    = qw(Exporter);
 our @EXPORT = qw(extract);
 our @EXPORT_OK = qw(set_quote_characters combine_hunks);
 
-use Text::Autoformat();    # Provides the Hang package, heh, heh.
+# Provides either the 'Hang' package -- or, on since version 1.69 of
+# Text::Autoformat, the 'Text::Autoformat::Hang' package.
+use Text::Autoformat();
+my $hang_package = Hang->can('new') ? "Hang" : "Text::Autoformat::Hang";
 
 =head1 NAME
 
@@ -194,7 +197,7 @@ sub _classify {
     foreach (splice @lines) {
         my %line = ( raw => $_ );
         @line{'quoter', 'text'} = (/\A *($quoter?) *(.*?)\s*\Z/);
-        $line{hang}      = Hang->new( $line{'text'} );
+        $line{hang}      = $hang_package->new( $line{'text'} );
         $line{empty}     = 1 if $line{hang}->empty() && $line{'text'} !~ /\S/;
         $line{separator} = 1 if $line{text} =~ /\A *$separator *\Z/o;
         push @lines, \%line;
