@@ -101,13 +101,9 @@ sub _organize {
             push @next, shift @todo while defined $todo[0]->{quoter}
               and $todo[0]->{quoter} =~ /^\Q$newquoter/;
 
-            # Find the
             # And pass them on to _organize()!
-            #print "Trying to organise the following lines over $newquoter:\n";
-            #print $_->{raw}."\n" for @next;
-            #print "!-!-!-\n";
             push @ret, _organize( $newquoter, @next );
-        } #  else { die "bugger! I had $top_level, but now I have $line->{raw}\n"; }
+        }
     }
     return \@ret;
 }
