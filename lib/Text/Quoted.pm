@@ -252,6 +252,7 @@ sub _classify {
             else {
                 my $extraspace =
                   length( $line->{raw} ) - length( $line->{text} ) - $firstfrom;
+                $extraspace = 0 if $extraspace < 0;
                 $paras[-1]->{text} .= "\n" . q{ } x $extraspace . $line->{text};
                 $paras[-1]->{raw} .= "\n" . $line->{raw};
             }
