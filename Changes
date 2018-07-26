@@ -1,7 +1,11 @@
 Revision history for Perl extension Text::Quoted.
 
-2.10
+2.10 2018-07-26
  - Add no_separators option (RJBS)
+ - Fix "Negative repeat count does nothing" warning (thanks to Stefan
+   Bühler)
+ - Fix Makefile.PL for perl 5.26 where "." is not in @INC by default
+   (thanks to Petr Písař)
 
 2.09 2015-02-20
  - Switch back to using Text::Tabs, as it no longer segfaults perl
